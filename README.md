@@ -75,3 +75,13 @@ python portfolio_analysis.py
 ```
 
 All output directories (`data/`, `outputs/plots/`) are created automatically on first run.
+
+---
+
+## Author
+
+**Lakshya Garg**
+
+- GitHub: [Lakshya-1501](https://github.com/Lakshya-1501)
+- LinkedIn: [lakshyagarg1515](https://www.linkedin.com/in/lakshyagarg1515/)
+- Email: garglakshya015@gmail.com
