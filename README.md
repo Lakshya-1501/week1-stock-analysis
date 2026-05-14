@@ -41,6 +41,31 @@ A correlation matrix is computed from the daily returns and saved to `data/corre
 - Interestingly, the two banking stocks HDFCBANK and ICICIBANK are less correlated with each other (0.37) than INFY is with ICICIBANK.
 - All correlations are positive, so this portfolio doesn't offer much sector-level diversification.
 
+### 4. Annualized Returns & Volatility
+Per-stock annualized return is computed as `mean daily return × 252` and annualized volatility as `std of daily returns × √252`.
+
+| Stock | Annual Return | Annual Volatility |
+|---|---|---|
+| RELIANCE | 6.8% | 25.8% |
+| TCS | 18.3% | 29.4% |
+| INFY | 12.8% | 27.6% |
+| HDFCBANK | 15.1% | 28.1% |
+| ICICIBANK | 5.8% | 24.1% |
+
+**Observations:**
+- TCS has the highest return (18.3%) but comes with the most volatility — classic high risk, high reward.
+- ICICIBANK sits at the other end — lowest return (5.8%) but also the steadiest.
+- RELIANCE has a surprisingly low return (6.8%) for the largest company in the portfolio.
+
+### 5. Equal-Weighted Portfolio
+Each stock gets a 20% weight. Portfolio return is the weighted average of annualized returns, and portfolio volatility is computed from the covariance matrix.
+
+- **Portfolio Return: 11.76%**
+- **Portfolio Volatility: 19.8%**
+
+**Observations:**
+- The portfolio volatility (19.8%) is lower than every single stock individually (24–29%) — this is diversification working even though all stocks are positively correlated.
+
 ---
 
 ## Project Structure

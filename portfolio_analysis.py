@@ -23,14 +23,16 @@ data.columns = list(tickers.keys())
 data = data.dropna()
 
 print(f"Shape: ",data.shape)
-print('\n',data.head())
+print('\nStocks Data:')
+print(data.head())
 
 data.to_csv("data/stock_prices.csv")
 
 
 # Compute daily returns
 returns = data.pct_change().dropna()
-print('\n',returns.head())
+print('\nDaily Returns:')
+print(returns.head())
 
 returns.to_csv("data/daily_returns.csv")
 
@@ -60,3 +62,35 @@ plt.savefig(
 )
 
 plt.close()
+
+# Annualized returns
+annual_returns = returns.mean() * 252    # 252 trading days
+
+print("\nAnnual Returns:")
+print(annual_returns)
+
+# Annualized volatility
+annual_volatility = returns.std() * np.sqrt(252)
+
+print("\nAnnual Volatility:")
+print(annual_volatility)
+
+# Portfolio Weights
+num_stocks = len(tickers)
+
+weights = np.array([1/num_stocks]*num_stocks)
+
+# Portfolio Returns
+portfolio_return = np.dot(weights,annual_returns)
+print("\nPortfolio return: ",portfolio_return)
+
+# Portfolio Volatility
+cov_matrix = returns.cov() * 252
+
+portfolio_variance = np.dot(
+    weights.T,
+    np.dot(cov_matrix,weights)
+)
+
+portfolio_volatility = np.sqrt(portfolio_variance)
+print("\nPortfolio Volatility: ",portfolio_volatility)
