@@ -8,6 +8,7 @@ import os
 # Creating Output Directories
 os.makedirs("outputs/plots",exist_ok=True)
 os.makedirs("data",exist_ok=True)
+os.makedirs("outputs/reports", exist_ok=True)
 
 # Download Data
 tickers = {
@@ -94,3 +95,68 @@ portfolio_variance = np.dot(
 
 portfolio_volatility = np.sqrt(portfolio_variance)
 print("\nPortfolio Volatility: ",portfolio_volatility)
+
+# Sharpe Ratio
+risk_free_rate = 0.065
+
+sharpe_ratio = (portfolio_return - risk_free_rate) / portfolio_volatility
+
+print("\nSharpe Ratio: ", sharpe_ratio)
+
+# Normalize Price Plot
+
+normalized_prices = data / data.iloc[0]
+
+plt.figure(figsize=(12, 6))
+
+for column in normalized_prices.columns:
+    plt.plot(
+        normalized_prices.index,
+        normalized_prices[column],
+        label=column
+    )
+
+plt.title("Normalized Stock Prices")
+plt.xlabel("Date")
+plt.ylabel("Normalized Price")
+plt.legend()
+plt.grid(True)
+
+# Save figure
+plt.savefig(
+    "outputs/plots/normalized_prices.png",
+    dpi=300,
+    bbox_inches="tight"
+)
+
+plt.close()
+
+# Summary Report
+
+summary = pd.DataFrame({
+    "Metric": [
+        "Expected Annual Return",
+        "Annual Volatility",
+        "Sharpe Ratio"
+    ],
+    "Value": [
+        portfolio_return,
+        portfolio_volatility,
+        sharpe_ratio
+    ]
+})
+
+summary.to_csv(
+    "outputs/reports/portfolio_summary.csv",
+    index=False
+)
+
+# Final Results
+
+print("\n================ Portfolio Summary ================")
+
+print(f"Expected Annual Return : {portfolio_return:.2%}")
+print(f"Annual Volatility      : {portfolio_volatility:.2%}")
+print(f"Sharpe Ratio           : {sharpe_ratio:.2f}")
+
+print("===================================================")

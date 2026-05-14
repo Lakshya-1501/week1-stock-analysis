@@ -24,7 +24,7 @@ The project is designed to build foundational skills in quantitative finance, fi
 
 ---
 
-## What's Been Done So Far
+## What Was Built
 
 ### 1. Data Download
 Historical adjusted closing prices for all five stocks are downloaded from Yahoo Finance starting 2020-01-01 using `yfinance`. Rows with missing values are dropped and the data is saved to `data/stock_prices.csv`.
@@ -60,11 +60,28 @@ Per-stock annualized return is computed as `mean daily return × 252` and annual
 ### 5. Equal-Weighted Portfolio
 Each stock gets a 20% weight. Portfolio return is the weighted average of annualized returns, and portfolio volatility is computed from the covariance matrix.
 
-- **Portfolio Return: 11.76%**
+- **Portfolio Return: 11.86%**
 - **Portfolio Volatility: 19.8%**
 
 **Observations:**
 - The portfolio volatility (19.8%) is lower than every single stock individually (24–29%) — this is diversification working even though all stocks are positively correlated.
+
+### 6. Sharpe Ratio
+Computed using a risk-free rate of 6.5% (approximate Indian 10-year bond yield).
+
+- **Sharpe Ratio: 0.27**
+
+**Observations:**
+- A Sharpe of 0.27 is quite low — you're getting very little excess return for the risk taken. This is partly because Indian large-caps had a rough stretch and the risk-free rate is relatively high at 6.5%.
+
+### 7. Normalized Price Chart
+All stock prices are normalized to 1 on 2020-01-01 so their growth can be compared on the same scale. Saved to `outputs/plots/normalized_prices.png`.
+
+**Observations:**
+- INFY was the standout performer, nearly tripling at its peak before pulling back.
+- TCS also had a strong run, reaching around 2.5x.
+- RELIANCE was the weakest — barely grew compared to the others despite being the largest company.
+- All five stocks saw a sharp decline post-2025, visible across the chart.
 
 ---
 
@@ -73,13 +90,17 @@ Each stock gets a 20% weight. Portfolio return is the weighted average of annual
 ```
 week1-stock-analysis/
 ├── portfolio_analysis.py
+├── portfolio_analysis.ipynb
 ├── data/
 │   ├── stock_prices.csv
 │   ├── daily_returns.csv
 │   └── correlation_matrix.csv
 ├── outputs/
-│   └── plots/
-│       └── correlation_heatmap.png
+│   ├── plots/
+│   │   ├── correlation_heatmap.png
+│   │   └── normalized_prices.png
+│   └── reports/
+│       └── portfolio_summary.csv
 └── README.md
 ```
 
@@ -99,7 +120,7 @@ pip install numpy pandas matplotlib seaborn yfinance
 python portfolio_analysis.py
 ```
 
-All output directories (`data/`, `outputs/plots/`) are created automatically on first run.
+All output directories (`data/`, `outputs/plots/`, `outputs/reports/`) are created automatically on first run.
 
 ---
 
